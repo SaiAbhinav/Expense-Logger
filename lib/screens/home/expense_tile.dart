@@ -1,5 +1,8 @@
 import 'package:expense_logger/models/expense.dart';
+import 'package:expense_logger/models/user.dart';
+import 'package:expense_logger/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExpenseTile extends StatelessWidget {
   final Expense expense;
@@ -25,6 +28,9 @@ class ExpenseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<User>(context);
+
     void _showExpenseDetails() {
       showModalBottomSheet(
           context: context,
@@ -33,11 +39,20 @@ class ExpenseTile extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
               child: Column(
                 children: <Widget>[
+                  Text(expense.uid),
                   Text(expense.date),
                   Text(expense.category),
                   Text(expense.paymentType),
                   Text(expense.description),
-                  Text(expense.amount)
+                  Text(expense.amount),
+                  FlatButton.icon(
+                    icon: Icon(Icons.delete),
+                    label: Text('Delete'),
+                    onPressed: () {
+                      DatabaseService(uid: user.uid).deleteExpenseData(expense.uid);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ],
               ),
             );
@@ -46,27 +61,20 @@ class ExpenseTile extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
-      child: Column(
-        children: <Widget>[
-          Text(expense.date),
-          SizedBox(
-            height: 10.0,
+      child: Card(
+        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
+        child: ListTile(
+          leading: Icon(
+            _getPaymentIcon(expense.paymentType),
+            size: 35.0,
+            color: Colors.blue,
           ),
-          Card(
-            margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-            child: ListTile(
-              leading: Icon(
-                _getPaymentIcon(expense.paymentType),
-                size: 35.0,
-              ),
-              title: Text(expense.amount),
-              subtitle: Text(expense.description),
-              onTap: () {
-                _showExpenseDetails();
-              },
-            ),
-          ),
-        ],
+          title: Text(expense.amount),
+          subtitle: Text(expense.description),
+          onTap: () {
+            _showExpenseDetails();
+          },
+        ),
       ),
     );
   }

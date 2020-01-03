@@ -23,6 +23,7 @@ class DatabaseService {
   List<Expense> _expenseListFromSnapshot(QuerySnapshot snapshot) {     
     return snapshot.documents.map((doc) {      
       return Expense(
+        uid: doc.documentID,
         date: doc.data['date'] ?? '',
         paymentType: doc.data['paymentType'] ?? '',
         category: doc.data['category'] ?? '',
@@ -36,6 +37,14 @@ class DatabaseService {
   Stream<List<Expense>> get expenses {    
     return usersCollection.document(uid).collection('expenses').orderBy('date')
       .snapshots().map(_expenseListFromSnapshot);
+  }
+
+  // delete an expense
+  Future deleteExpenseData(String docId) async {
+    return await usersCollection.document(uid).collection('expenses')
+      .document(docId).delete().whenComplete(() {
+        print('Deleted !!!');
+      });
   }
   
 }

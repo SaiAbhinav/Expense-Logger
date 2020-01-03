@@ -1,4 +1,5 @@
 class Expense {
+  final String uid;
   final String date;
   final String paymentType;
   final String category;
@@ -6,6 +7,7 @@ class Expense {
   final String amount;
 
   Expense({
+    this.uid,
     this.date,
     this.paymentType,
     this.category,
