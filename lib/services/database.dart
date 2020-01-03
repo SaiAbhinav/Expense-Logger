@@ -6,8 +6,7 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   // collection reference
-  final CollectionReference usersCollection =
-      Firestore.instance.collection('users');
+  final CollectionReference usersCollection = Firestore.instance.collection('users');
 
   // insert expense data
   Future insertExpenseData(Expense expense) async {
@@ -21,8 +20,22 @@ class DatabaseService {
   }
 
   // expenseList from snapshot
-  
+  List<Expense> _expenseListFromSnapshot(QuerySnapshot snapshot) {     
+    return snapshot.documents.map((doc) {      
+      return Expense(
+        date: doc.data['date'] ?? '',
+        paymentType: doc.data['paymentType'] ?? '',
+        category: doc.data['category'] ?? '',
+        description: doc.data['description'] ?? '',
+        amount: doc.data['amount'] ?? ''
+      );
+    }).toList();
+  }
 
   // get expenses stream
+  Stream<List<Expense>> get expenses {    
+    return usersCollection.document(uid).collection('expenses').orderBy('date')
+      .snapshots().map(_expenseListFromSnapshot);
+  }
   
 }
