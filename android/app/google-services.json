@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "818904221503",
+    "firebase_url": "https://flutter-expense-logger.firebaseio.com",
+    "project_id": "flutter-expense-logger",
+    "storage_bucket": "flutter-expense-logger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818904221503:android:e242c07324890225a0758a",
+        "android_client_info": {
+          "package_name": "com.saiabhinav.expense_logger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818904221503-u9qqj2tfm2421tgqg5natjh7qc7fqhn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKU1xAJ0KvhJo_Aw_XSeuZfOfIaEMEWOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818904221503-u9qqj2tfm2421tgqg5natjh7qc7fqhn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
