@@ -273,31 +273,31 @@ class _SignInState extends State<SignIn> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            print(
-                                                'Pressed Sign in with facebook');
-                                          },
-                                          child: Container(
-                                            height: 60.0,
-                                            width: 60.0,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 2),
-                                                  blurRadius: 6.0,
-                                                ),
-                                              ],
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/logos/facebook.jpg'),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        // GestureDetector(
+                                        //   onTap: () {
+                                        //     print(
+                                        //         'Pressed Sign in with facebook');
+                                        //   },
+                                        //   child: Container(
+                                        //     height: 60.0,
+                                        //     width: 60.0,
+                                        //     decoration: BoxDecoration(
+                                        //       shape: BoxShape.circle,
+                                        //       color: Colors.white,
+                                        //       boxShadow: [
+                                        //         BoxShadow(
+                                        //           color: Colors.black26,
+                                        //           offset: Offset(0, 2),
+                                        //           blurRadius: 6.0,
+                                        //         ),
+                                        //       ],
+                                        //       image: DecorationImage(
+                                        //         image: AssetImage(
+                                        //             'assets/logos/facebook.jpg'),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
                                         GestureDetector(
                                           onTap: () async {
                                             print(
