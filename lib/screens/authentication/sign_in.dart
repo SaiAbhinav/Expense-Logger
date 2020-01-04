@@ -110,7 +110,7 @@ class _SignInState extends State<SignIn> {
                                           color: Colors.white,
                                         ),
                                         hintText: 'Enter your Email',
-                                        hintStyle: kHintTextStyle,                                        
+                                        hintStyle: kHintTextStyle,
                                       ),
                                     ),
                                   ),
@@ -134,9 +134,8 @@ class _SignInState extends State<SignIn> {
                                     decoration: kBoxDecorationStyle,
                                     height: 60.0,
                                     child: TextFormField(
-                                      validator: (val) => val.length < 8
-                                          ? null
-                                          : null,
+                                      validator: (val) =>
+                                          val.length < 8 ? null : null,
                                       onChanged: (val) =>
                                           setState(() => password = val),
                                       obscureText: true,
@@ -163,8 +162,14 @@ class _SignInState extends State<SignIn> {
                                 alignment: Alignment.centerRight,
                                 child: FlatButton(
                                   padding: EdgeInsets.only(right: 0.0),
-                                  onPressed: () {
-                                    print('Pressed forgot password');
+                                  onPressed: () async {
+                                    dynamic result = await _authService
+                                        .resetPassword(context, email);
+                                    if (result is String || result == null) {
+                                      setState(() {
+                                        error = result ?? '';                                        
+                                      });
+                                    }
                                   },
                                   child: Text(
                                     'Forgot Password?',
@@ -199,15 +204,31 @@ class _SignInState extends State<SignIn> {
                                 child: RaisedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState.validate()) {
-                                      setState(() => loading = true);
-                                      dynamic result = await _authService
-                                          .signInWithEmailAndPassword(
-                                              email, password);
-                                      if (result is String) {
-                                        setState(() {
-                                          error = result;
-                                          loading = false;
-                                        });
+                                      if (email != '' &&
+                                          password != '' &&
+                                          password.length >= 8) {
+                                        setState(() => loading = true);
+                                        dynamic result = await _authService
+                                            .signInWithEmailAndPassword(
+                                                email, password);
+                                        if (result is String ||
+                                            result == null) {
+                                          setState(() {
+                                            error = result ?? '';
+                                            loading = false;
+                                          });
+                                        }
+                                      } else {
+                                        if (email == '') {
+                                          setState(
+                                              () => error = 'Enter an email');
+                                        } else if (password == '') {
+                                          setState(
+                                              () => error = 'Enter a password');
+                                        } else if (password.length < 8) {
+                                          setState(() => error =
+                                              'Password should be 8+ chars long');
+                                        }
                                       }
                                     }
                                   },
@@ -357,82 +378,5 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           );
-    // return loading
-    //     ? Loading()
-    //     : Scaffold(
-    //         appBar: AppBar(
-    //           title: Text('Sign in to Expense Logger'),
-    //           actions: <Widget>[
-    //             FlatButton.icon(
-    //               icon: Icon(Icons.person_add),
-    //               label: Text('Register'),
-    //               onPressed: () {
-    //                 widget.toggleView();
-    //               },
-    //             ),
-    //           ],
-    //         ),
-    //         body: Container(
-    //           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-    //           child: Form(
-    //             key: _formKey,
-    //             child: Column(
-    //               children: <Widget>[
-    //                 SizedBox(
-    //                   height: 20.0,
-    //                 ),
-    //                 TextFormField(
-    //                   decoration: InputDecoration(hintText: 'Email'),
-    //                   validator: (val) => val.isEmpty ? 'Enter an email' : null,
-    //                   onChanged: (val) => setState(() => email = val),
-    //                 ),
-    //                 SizedBox(
-    //                   height: 20.0,
-    //                 ),
-    //                 TextFormField(
-    //                   obscureText: true,
-    //                   decoration: InputDecoration(hintText: 'Password'),
-    //                   validator: (val) => val.length < 8
-    //                       ? 'Enter a password 8+ chars long'
-    //                       : null,
-    //                   onChanged: (val) => setState(() => password = val),
-    //                 ),
-    //                 SizedBox(
-    //                   height: 20.0,
-    //                 ),
-    //                 RaisedButton(
-    //                   color: Colors.blue,
-    //                   child: Text(
-    //                     'Sign in',
-    //                     style: TextStyle(color: Colors.white),
-    //                   ),
-    //                   onPressed: () async {
-    //                     if (_formKey.currentState.validate()) {
-    //                       setState(() => loading = true);
-    //                       dynamic result = await _authService
-    //                           .signInWithEmailAndPassword(email, password);
-    //                       if (result is String) {
-    //                         setState(() {
-    //                           error = result;
-    //                           loading = false;
-    //                         });
-    //                       }
-    //                     }
-    //                   },
-    //                 ),
-    //                 SizedBox(
-    //                   height: 20.0,
-    //                 ),
-    //                 Text(
-    //                   error,
-    //                   style: TextStyle(
-    //                     color: Colors.red,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       );
   }
 }
