@@ -43,10 +43,10 @@ class _RegisterState extends State<Register> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color(0xFF73AEF5),
-                          Color(0xFF61A4F1),
-                          Color(0xFF478DE0),
-                          Color(0xFF398AE5)
+                          Color(0xFFFFFFFF),
+                          Color(0xFFEEEEEE),
+                          Color(0xFFDDDDDD),
+                          Color(0xFFCCCCCC)
                         ],
                         stops: [0.1, 0.4, 0.7, 0.9],
                       )),
@@ -69,7 +69,7 @@ class _RegisterState extends State<Register> {
                               Text(
                                 'Sign Up',
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black54,
                                     fontFamily: 'OpenSans',
                                     fontSize: 30.0,
                                     fontWeight: FontWeight.bold),
@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
                                           setState(() => email = val),
                                       keyboardType: TextInputType.emailAddress,
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black87,
                                         fontSize: 18.0,
                                       ),
                                       decoration: InputDecoration(
@@ -107,7 +107,7 @@ class _RegisterState extends State<Register> {
                                             EdgeInsets.only(top: 14.0),
                                         prefixIcon: Icon(
                                           Icons.email,
-                                          color: Colors.white,
+                                          color: Colors.black26,
                                         ),
                                         hintText: 'Enter your Email',
                                         hintStyle: kHintTextStyle,
@@ -140,7 +140,7 @@ class _RegisterState extends State<Register> {
                                           setState(() => password = val),
                                       obscureText: true,
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black87,
                                         fontSize: 18.0,
                                       ),
                                       decoration: InputDecoration(
@@ -149,7 +149,7 @@ class _RegisterState extends State<Register> {
                                             EdgeInsets.only(top: 14.0),
                                         prefixIcon: Icon(
                                           Icons.lock,
-                                          color: Colors.white,
+                                          color: Colors.black26,
                                         ),
                                         hintText: 'Enter your Password',
                                         hintStyle: kHintTextStyle,
@@ -184,7 +184,7 @@ class _RegisterState extends State<Register> {
                                           setState(() => confirmPassword = val),
                                       obscureText: true,
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black87,
                                         fontSize: 18.0,
                                       ),
                                       decoration: InputDecoration(
@@ -193,7 +193,7 @@ class _RegisterState extends State<Register> {
                                             EdgeInsets.only(top: 14.0),
                                         prefixIcon: Icon(
                                           Icons.lock,
-                                          color: Colors.white,
+                                          color: Colors.black26,
                                         ),
                                         hintText: 'Confirm Password',
                                         hintStyle: kHintTextStyle,
@@ -256,7 +256,7 @@ class _RegisterState extends State<Register> {
                                       child: Text(
                                         'REGISTER',
                                         style: TextStyle(
-                                          color: Color(0xFF527DAA),
+                                          color: Color(0xFF666666),
                                           letterSpacing: 1.5,
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
@@ -292,7 +292,7 @@ class _RegisterState extends State<Register> {
                                           TextSpan(
                                             text: 'Have an Account ? ',
                                             style: TextStyle(
-                                              color: Colors.white54,
+                                              color: Colors.black38,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -300,7 +300,7 @@ class _RegisterState extends State<Register> {
                                           TextSpan(
                                             text: 'Sign In',
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black54,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
                                             ),

@@ -92,7 +92,7 @@ class AuthService {
       if (firebaseUser.isEmailVerified) {
         return _userFromFirebaseUser(firebaseUser);
       } else {
-        return 'Email verfication is pending...!';
+        return 'Please verify the email through the link sent to the registered email address';
       }
     } catch (e) {
       print(e.toString());
