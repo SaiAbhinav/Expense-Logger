@@ -167,7 +167,7 @@ class _SignInState extends State<SignIn> {
                                         .resetPassword(context, email);
                                     if (result is String || result == null) {
                                       setState(() {
-                                        error = result ?? '';                                        
+                                        error = result ?? '';
                                       });
                                     }
                                   },
@@ -299,9 +299,19 @@ class _SignInState extends State<SignIn> {
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: () {
+                                          onTap: () async {
                                             print(
                                                 'Pressed Sign in with Google');
+                                            setState(() => loading = true);
+                                            dynamic result = await _authService
+                                                .signInWithGoogle();
+                                            if (result is String ||
+                                                result == null) {
+                                              setState(() {
+                                                error = result ?? '';
+                                                loading = false;
+                                              });
+                                            }
                                           },
                                           child: Container(
                                             height: 60.0,

@@ -1,9 +1,11 @@
 import 'package:expense_logger/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // create user object based on FirebaseUser
   User _userFromFirebaseUser(FirebaseUser firebaseUser) {
@@ -44,6 +46,40 @@ class AuthService {
       print(e.toString());
       return _getErroMessage(e.code);
     }
+  }
+
+  // sign in with google
+  Future signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount googleSignInAccount =
+          await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+
+      AuthResult authResult =
+          await _firebaseAuth.signInWithCredential(credential);
+      FirebaseUser firebaseUser = authResult.user;
+      return _userFromFirebaseUser(firebaseUser);
+    } catch (e) {
+      print(e.toString());
+      return _getErroMessage(e.code);
+    }
+  }
+
+  //sign out from google
+  void signOutFromGoogle() async {
+    print('google signout');
+    await _googleSignIn.signOut();
+    signOut();
+  }
+
+  // is signed in with google
+  Future<bool> isSignInWithGoogle() async {
+    return await _googleSignIn.isSignedIn();
   }
 
   // register with email and password

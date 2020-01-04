@@ -34,7 +34,8 @@ class Home extends StatelessWidget {
               icon: Icon(Icons.power_settings_new),
               color: Colors.white,
               onPressed: () async {
-                await _authService.signOut();
+                print(_authService.isSignInWithGoogle());
+                await _authService.isSignInWithGoogle() ? _authService.signOutFromGoogle() : _authService.signOut();                
               },
             ),
           ],
