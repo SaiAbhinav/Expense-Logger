@@ -177,27 +177,27 @@ class _SignInState extends State<SignIn> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Theme(
-                                      data: ThemeData(
-                                          unselectedWidgetColor: Colors.white),
-                                      child: Checkbox(
-                                        value: _rememberMe,
-                                        checkColor: Colors.blue,
-                                        activeColor: Colors.white,
-                                        onChanged: (val) =>
-                                            setState(() => _rememberMe = val),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Remember me',
-                                      style: kLabelStyle,
-                                    )
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   child: Row(
+                              //     children: <Widget>[
+                              //       Theme(
+                              //         data: ThemeData(
+                              //             unselectedWidgetColor: Colors.white),
+                              //         child: Checkbox(
+                              //           value: _rememberMe,
+                              //           checkColor: Colors.blue,
+                              //           activeColor: Colors.white,
+                              //           onChanged: (val) =>
+                              //               setState(() => _rememberMe = val),
+                              //         ),
+                              //       ),
+                              //       Text(
+                              //         'Remember me',
+                              //         style: kLabelStyle,
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                               Container(
                                 padding: EdgeInsets.symmetric(vertical: 25.0),
                                 width: double.infinity,
@@ -347,7 +347,7 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 40.0,
+                                    height: 85.0,
                                   ),
                                   GestureDetector(
                                     onTap: () {
