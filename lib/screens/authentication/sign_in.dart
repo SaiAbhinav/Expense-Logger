@@ -17,7 +17,7 @@ class _SignInState extends State<SignIn> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-  bool _rememberMe = false;
+  // bool _rememberMe = false;
 
   // text field state
   String email = '';

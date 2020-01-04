@@ -3,12 +3,12 @@ import 'package:expense_logger/screens/home/expense_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ExpenseList extends StatefulWidget {
+class Transactions extends StatefulWidget {
   @override
-  _ExpenseListState createState() => _ExpenseListState();
+  _TransactionsState createState() => _TransactionsState();
 }
 
-class _ExpenseListState extends State<ExpenseList> {
+class _TransactionsState extends State<Transactions> {
   @override
   Widget build(BuildContext context) {
     final expenses = Provider.of<List<Expense>>(context) ?? [];

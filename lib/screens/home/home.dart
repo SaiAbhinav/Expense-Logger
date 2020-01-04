@@ -1,53 +1,69 @@
-import 'package:expense_logger/models/expense.dart';
-import 'package:expense_logger/models/user.dart';
-import 'package:expense_logger/screens/home/expense_form.dart';
-import 'package:expense_logger/screens/home/expense_list.dart';
-import 'package:expense_logger/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:expense_logger/services/database.dart';
 
 class Home extends StatelessWidget {
-  final AuthService _authService = AuthService();
+  final Function callback;
+  Home({this.callback});
 
   @override
   Widget build(BuildContext context) {
-
-    final user = Provider.of<User>(context);
-
-    void _showExpensePanel() {
-      showModalBottomSheet(context: context, builder: (context) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: ExpenseForm(),
-        );
-      });
-    }    
-
-    return StreamProvider<List<Expense>>.value(
-      value: DatabaseService(uid: user.uid).expenses,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Expense Logger'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.power_settings_new),
-              color: Colors.white,
-              onPressed: () async {
-                print(_authService.isSignInWithGoogle());
-                await _authService.isSignInWithGoogle() ? _authService.signOutFromGoogle() : _authService.signOut();                
-              },
+    return Material(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+        child: ListView(
+          children: <Widget>[
+            SizedBox(
+              height: 30.0,
+            ),
+            Text(
+              'Hi User',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey[200],
+              ),
+              child: ListTile(
+                title: Text(
+                  '₹ 13,200',
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'Total Expense Till Now',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: GestureDetector(
+                  onTap: () {
+                    callback(1);
+                  },
+                  child: Text(
+                    'View All',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 13.0,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
-        ),
-        body: ExpenseList(),
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.blue,
-          icon: Icon(Icons.add),
-          label: Text('Expense'),
-          onPressed: () {
-            _showExpensePanel();
-          },
         ),
       ),
     );
