@@ -114,6 +114,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
               height: 20.0,
             ),
             TextFormField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: 'Amount'),
               validator: (val) => val.isEmpty ? 'Please enter amount' : null,
               onChanged: (val) => setState(() => _amount = val),

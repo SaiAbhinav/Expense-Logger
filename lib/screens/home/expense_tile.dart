@@ -28,52 +28,61 @@ class ExpenseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
-
-    void _showExpenseDetails() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: Column(
-                children: <Widget>[
-                  Text(expense.uid),
-                  Text(expense.date),
-                  Text(expense.category),
-                  Text(expense.paymentType),
-                  Text(expense.description),
-                  Text(expense.amount),
-                  FlatButton.icon(
-                    icon: Icon(Icons.delete),
-                    label: Text('Delete'),
-                    onPressed: () {
-                      DatabaseService(uid: user.uid).deleteExpenseData(expense.uid);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            );
-          });
-    }
 
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
-      child: Card(
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
-        child: ListTile(
-          leading: Icon(
-            _getPaymentIcon(expense.paymentType),
-            size: 35.0,
-            color: Colors.blue,
+      child: Dismissible(
+        key: Key(expense.toString()),      
+        direction: DismissDirection.endToStart,  
+        background: Container(
+          padding: EdgeInsets.only(right: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ],
           ),
-          title: Text(expense.amount),
-          subtitle: Text(expense.description),
-          onTap: () {
-            _showExpenseDetails();
-          },
+          color: Colors.red,
+        ),
+        onDismissed: (direction) {
+          DatabaseService(uid: user.uid).deleteExpenseData(expense.uid);
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Expense has been deleted...!!!'),
+            ),
+          );
+        },
+        child: Card(
+          margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 6.0),
+          child: ExpansionTile(
+            leading: Icon(
+              _getPaymentIcon(expense.paymentType),
+              size: 35.0,
+              color: Colors.blue,
+            ),
+            title: Text(expense.category),
+            subtitle: Text(expense.date),
+            trailing: Text(expense.amount),
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 72.0),
+                    child: Text(expense.description),
+                  ),
+                ],
+              )
+            ],
+            // onTap: () {
+            //   _showExpenseDetails();
+            // },
+          ),
         ),
       ),
     );
