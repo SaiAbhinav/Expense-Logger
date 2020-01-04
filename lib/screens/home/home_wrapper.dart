@@ -13,8 +13,7 @@ class HomeWrapper extends StatefulWidget {
   _HomeWrapperState createState() => _HomeWrapperState();
 }
 
-class _HomeWrapperState extends State<HomeWrapper> {  
-
+class _HomeWrapperState extends State<HomeWrapper> {
   int _currentIndex = 0;
 
   void onTabTapped(int index) {
@@ -39,7 +38,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
     }
 
     Widget _getChildren(int index) {
-      switch(index) {
+      switch (index) {
         case 0:
           return Home(callback: onTabTapped);
           break;
@@ -58,37 +57,44 @@ class _HomeWrapperState extends State<HomeWrapper> {
     return StreamProvider<List<Expense>>.value(
       value: DatabaseService(uid: user.uid).expenses,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.grey,
-          icon: Icon(Icons.add),
-          label: Text('Expense'),
-          onPressed: () {
-            _showExpensePanel();
-          },
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.black87,
-          unselectedItemColor: Colors.black26,
-          currentIndex: _currentIndex,
-          onTap: onTabTapped,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
+          floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: Colors.white,
+            icon: Icon(
+              Icons.add,
+              color: Colors.grey,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.description),
-              title: new Text('Transactions'),
+            label: Text(
+              'Expense',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16.0,
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              title: Text('Account'),
-            )
-          ],
-        ),
-        body: _getChildren(_currentIndex)
-      ),
-
+            onPressed: () {
+              _showExpensePanel();
+            },
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.black87,
+            unselectedItemColor: Colors.black26,
+            currentIndex: _currentIndex,
+            onTap: onTabTapped,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.description),
+                title: new Text('Transactions'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline),
+                title: Text('Account'),
+              )
+            ],
+          ),
+          body: _getChildren(_currentIndex)),
 
       // child: Scaffold(
       //   appBar: AppBar(
