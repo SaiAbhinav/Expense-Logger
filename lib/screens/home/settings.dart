@@ -1,12 +1,12 @@
 import 'package:expense_logger/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class Account extends StatefulWidget {
+class Settings extends StatefulWidget {
   @override
-  _AccountState createState() => _AccountState();
+  _SettingsState createState() => _SettingsState();
 }
 
-class _AccountState extends State<Account> {
+class _SettingsState extends State<Settings> {
   final AuthService _authService = AuthService();
 
   @override
