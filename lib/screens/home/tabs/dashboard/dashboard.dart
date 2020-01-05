@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
-  final Function callback;
-  Dashboard({this.callback});
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -49,18 +46,6 @@ class Dashboard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                // trailing: GestureDetector(
-                //   onTap: () {
-                //     callback(1);
-                //   },
-                //   child: Text(
-                //     'View All',
-                //     style: TextStyle(
-                //       color: Colors.blue,
-                //       fontSize: 13.0,
-                //     ),
-                //   ),
-                // ),
               ),
             ),
           ],

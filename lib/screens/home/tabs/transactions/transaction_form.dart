@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-class ExpenseForm extends StatefulWidget {
+class TransactionForm extends StatefulWidget {
   @override
-  _ExpenseFormState createState() => _ExpenseFormState();
+  _TransactionFormState createState() => _TransactionFormState();
 }
 
-class _ExpenseFormState extends State<ExpenseForm> {
+class _TransactionFormState extends State<TransactionForm> {
   final _formKey = GlobalKey<FormState>();
   final _paymentTypes = ['CARD', 'FOOD CARD', 'CASH', 'UPI'];
   final _categories = ['FOOD', 'TRANSPORT'];

@@ -4,9 +4,9 @@ import 'package:expense_logger/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ExpenseTile extends StatelessWidget {
+class Transaction extends StatelessWidget {
   final Expense expense;
-  ExpenseTile({this.expense});
+  Transaction({this.expense});
 
   IconData _getPaymentIcon(String paymentType) {
     switch (paymentType) {
