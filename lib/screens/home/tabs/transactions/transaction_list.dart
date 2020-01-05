@@ -44,8 +44,8 @@ class TransactionList extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
               color: value['transactionType'] == 'IN'
-                  ? Colors.green.withOpacity(0.2)
-                  : Colors.red.withOpacity(0.2),
+                  ? Colors.green.withOpacity(0.15)
+                  : Colors.red.withOpacity(0.15),
             ),
             padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
             child: Text(
