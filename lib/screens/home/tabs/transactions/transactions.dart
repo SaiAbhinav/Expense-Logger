@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_logger/screens/home/tabs/transactions/transaction_form.dart';
-import 'package:expense_logger/screens/home/tabs/transactions/transaction_tile.dart';
+import 'package:expense_logger/screens/home/tabs/transactions/transaction_list.dart';
 import 'package:expense_logger/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -85,7 +85,7 @@ class _TransactionsState extends State<Transactions> {
                 ],
               ),
             ),
-            TransactionTile(
+            TransactionList(
                 keyName: key, keyValue: transactions.data['transactions'][key])
           ],
         );

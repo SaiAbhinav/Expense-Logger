@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TransactionTile extends StatelessWidget {
+class TransactionList extends StatelessWidget {
   final String keyName;
   final dynamic keyValue;
 
@@ -10,7 +10,7 @@ class TransactionTile extends StatelessWidget {
     'SALARY': Icons.monetization_on
   };
 
-  TransactionTile({this.keyName, this.keyValue});
+  TransactionList({this.keyName, this.keyValue});
 
   List<Widget> _getList(keyValue) {
     List<Widget> list = [];
