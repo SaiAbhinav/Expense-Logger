@@ -1,8 +1,10 @@
-import 'package:expense_logger/models/expense.dart';
-import 'package:expense_logger/screens/home/tabs/transactions/transaction.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_logger/screens/home/tabs/transactions/transaction_form.dart';
+import 'package:expense_logger/screens/home/tabs/transactions/transaction_tile.dart';
+import 'package:expense_logger/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Transactions extends StatefulWidget {
   @override
@@ -10,9 +12,17 @@ class Transactions extends StatefulWidget {
 }
 
 class _TransactionsState extends State<Transactions> {
+  String _formatDate(String date) {
+    var dateArr = date.split('_');
+    var dateTimeObj = DateTime(
+        int.parse(dateArr[2]), int.parse(dateArr[1]), int.parse(dateArr[0]));
+    var formatter = new DateFormat('EEE, MMM dd, yyyy');
+    return formatter.format(dateTimeObj);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final expenses = Provider.of<List<Expense>>(context) ?? [];
+    final transactions = Provider.of<DocumentSnapshot>(context);
 
     void _showExpensePanel() {
       showModalBottomSheet(
@@ -27,6 +37,22 @@ class _TransactionsState extends State<Transactions> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.filter_list,
+                color: Colors.black38,
+              ),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.white,
         icon: Icon(
@@ -44,20 +70,59 @@ class _TransactionsState extends State<Transactions> {
           _showExpensePanel();
         },
       ),
-      body: expenses.length > 0
-          ? ListView.builder(
-              itemCount: expenses.length,
-              itemBuilder: (context, index) {
-                return Transaction(
-                  expense: expenses[index],
-                );
-              },
-            )
-          : Container(
-              child: Center(
-                child: Text('Add your expense'),
-              ),
-            ),
+      body: transactions != null
+          ? transactions.data['transactions'] != null
+              ? Container(
+                  color: Colors.grey[200],
+                  width: double.infinity,
+                  height: double.infinity,
+                  // padding: EdgeInsets.only(top: 20.0),
+                  child: ListView(
+                    children: transactions.data['transactions'].keys
+                        .map<Widget>((key) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              right: 18.0,
+                              left: 18.0,
+                              top: 14.0,
+                              bottom: 6.0,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  _formatDate(key),
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text('- ₹ 150', style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 16.0
+                                ),),
+                              ],
+                            ),
+                          ),
+                          TransactionTile(
+                              keyName: key,
+                              keyValue: transactions.data['transactions'][key])
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                )
+              : Container(
+                  child: Center(
+                    child: Text('Add a transaction'),
+                  ),
+                )
+          : Loading(),
     );
   }
 }

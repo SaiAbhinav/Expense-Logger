@@ -1,6 +1,7 @@
 class Expense {
   final String uid;
   final String date;
+  final String transactionType;
   final String paymentType;
   final String category;
   final String description;
@@ -9,6 +10,7 @@ class Expense {
   Expense({
     this.uid,
     this.date,
+    this.transactionType,
     this.paymentType,
     this.category,
     this.description,

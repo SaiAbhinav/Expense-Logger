@@ -1,11 +1,11 @@
-import 'package:expense_logger/models/expense.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_logger/models/user.dart';
 import 'package:expense_logger/screens/home/tabs/dashboard/dashboard.dart';
 import 'package:expense_logger/screens/home/tabs/settings/settings.dart';
 import 'package:expense_logger/screens/home/tabs/transactions/transactions.dart';
+import 'package:expense_logger/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_logger/services/database.dart';
 
 class Home extends StatefulWidget {
   final List<NavBarItem> navBarItems = [
@@ -27,8 +27,8 @@ class _HomeState extends State<Home> {
 
     final List<Widget> _childern = [Dashboard(), Transactions(), Settings()];
 
-    return StreamProvider<List<Expense>>.value(
-      value: DatabaseService(uid: user.uid).expenses,
+    return StreamProvider<DocumentSnapshot>.value(
+      value: DatabaseService(uid: user.uid).transactions,
       child: Scaffold(
         bottomNavigationBar: BottomNavBar(
           navBarItems: widget.navBarItems,

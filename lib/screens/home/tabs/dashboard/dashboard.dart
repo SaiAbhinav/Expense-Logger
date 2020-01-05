@@ -7,7 +7,7 @@ class Dashboard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+        padding: EdgeInsets.only(top: 40.0, right: 24.0, left: 24.0),
         child: ListView(
           children: <Widget>[
             SizedBox(
