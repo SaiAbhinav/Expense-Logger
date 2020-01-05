@@ -36,6 +36,60 @@ class _TransactionsState extends State<Transactions> {
       );
     }
 
+    String _getDailySpentAmount(String key) {
+      int total = 0;
+      List<dynamic> dailyTransactions = transactions.data['transactions'][key];
+      dailyTransactions.forEach((dailyTransaction) {
+        if (dailyTransaction['transactionType'] == 'OUT') {
+          total += int.parse(dailyTransaction['amount']);
+        }
+      });
+      return total.toString();
+    }
+
+    List<Widget> _getChildren() {
+      List<String> sortedKeys = List<String>.from(transactions.data['transactions'].keys);
+      sortedKeys.sort((b, a) => a.compareTo(b));      
+      return sortedKeys.map<Widget>((key) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 18.0,
+                left: 18.0,
+                top: 14.0,
+                bottom: 6.0,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    _formatDate(key),
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    '- ₹ ${_getDailySpentAmount(key)}',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TransactionTile(
+                keyName: key, keyValue: transactions.data['transactions'][key])
+          ],
+        );
+      }).toList();
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -45,8 +99,9 @@ class _TransactionsState extends State<Transactions> {
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
               icon: Icon(
-                Icons.filter_list,
+                Icons.date_range,
                 color: Colors.black38,
+                size: 30.0,
               ),
               onPressed: () {},
             ),
@@ -77,45 +132,7 @@ class _TransactionsState extends State<Transactions> {
                   width: double.infinity,
                   height: double.infinity,
                   // padding: EdgeInsets.only(top: 20.0),
-                  child: ListView(
-                    children: transactions.data['transactions'].keys
-                        .map<Widget>((key) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              right: 18.0,
-                              left: 18.0,
-                              top: 14.0,
-                              bottom: 6.0,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  _formatDate(key),
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text('- ₹ 150', style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 16.0
-                                ),),
-                              ],
-                            ),
-                          ),
-                          TransactionTile(
-                              keyName: key,
-                              keyValue: transactions.data['transactions'][key])
-                        ],
-                      );
-                    }).toList(),
-                  ),
+                  child: ListView(children: _getChildren()),
                 )
               : Container(
                   child: Center(

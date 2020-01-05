@@ -4,6 +4,12 @@ class TransactionTile extends StatelessWidget {
   final String keyName;
   final dynamic keyValue;
 
+  final Map<String, IconData> icons = {
+    'FOOD': Icons.local_dining,
+    'TRANSPORT': Icons.directions_bike,
+    'SALARY': Icons.monetization_on
+  };
+
   TransactionTile({this.keyName, this.keyValue});
 
   List<Widget> _getList(keyValue) {
@@ -20,8 +26,16 @@ class TransactionTile extends StatelessWidget {
           ),
         ),
         child: ExpansionTile(
+          leading: Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8.0)
+            ),
+            child: Icon(icons[value['category']]),
+          ),
           title: Text(value['category']),
-          subtitle: Text(value['date']),
+          subtitle: Text(value['description']),
           trailing: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
