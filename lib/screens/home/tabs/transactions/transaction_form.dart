@@ -15,7 +15,7 @@ class _TransactionFormState extends State<TransactionForm> {
   final _transactionTypes = ['IN', 'OUT'];
   final _outPaymentTypes = ['CARD', 'FOOD CARD', 'CASH', 'UPI'];
   final _inPaymentTypes = ['ACCOUNT', 'CASH'];
-  final _outCategories = ['FOOD', 'TRANSPORT'];
+  final _outCategories = ['FOOD', 'TRANSPORT', 'FASTFOOD', 'STORE'];
   final _inCategories = ['SALARY'];
 
   // form values

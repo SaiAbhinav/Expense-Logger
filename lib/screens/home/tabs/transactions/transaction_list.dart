@@ -7,7 +7,9 @@ class TransactionList extends StatelessWidget {
   final Map<String, IconData> icons = {
     'FOOD': Icons.local_dining,
     'TRANSPORT': Icons.directions_bike,
-    'SALARY': Icons.monetization_on
+    'SALARY': Icons.monetization_on,
+    'FASTFOOD': Icons.fastfood,
+    'STORE': Icons.local_grocery_store
   };
 
   TransactionList({this.keyName, this.keyValue});
@@ -29,13 +31,15 @@ class TransactionList extends StatelessWidget {
           leading: Container(
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8.0)
-            ),
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8.0)),
             child: Icon(icons[value['category']]),
           ),
           title: Text(value['category']),
-          subtitle: Text(value['description']),
+          subtitle: Text(
+            value['description'],
+            overflow: TextOverflow.ellipsis,
+          ),
           trailing: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
